@@ -8,14 +8,14 @@ RUN  apt-get update && apt-get install -y certbot -t stretch-backports
 
 WORKDIR ${APP_ROOT}
 
-COPY Gemfile ${APP_ROOT}
+COPY Gemfile .
 RUN bundle install
 
-COPY websocket.rb ${APP_ROOT}
-COPY config.ru ${APP_ROOT}
+COPY websocket.rb .
+COPY config.ru .
 
-COPY docker-entrypoint.sh /usr/local/bin
+COPY docker-entrypoint.sh /usr/local/bin/
 
+EXPOSE 80
 EXPOSE 443
-ENTRYPOINT [ "docker-entrypoint.sh" ]
-CMD [ "/bin/bash" ]
+ENTRYPOINT [ "/usr/local/bin/docker-entrypoint.sh" ]
